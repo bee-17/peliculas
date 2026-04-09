@@ -1,0 +1,40 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>🎥 Películas</h1>
+  <a href="{% url 'pelicula_create' %}" class="btn btn-success">+ Nueva Película</a>
+</div>
+<div class="card p-3">
+  <table class="table table-dark table-hover align-middle">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Título</th>
+        <th>Año</th>
+        <th>Género</th>
+        <th>Director</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in peliculas %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td><strong>{{ p.titulo }}</strong></td>
+        <td>{{ p.anio_estreno }}</td>
+        <td><span class="badge bg-secondary">{{ p.genero }}</span></td>
+        <td>{{ p.director }}</td>
+        <td>
+          <a href="{% url 'pelicula_edit' p.pk %}" class="btn btn-sm btn-warning">✏️ Editar</a>
+          <a href="{% url 'pelicula_delete' p.pk %}" class="btn btn-sm btn-danger">🗑️ Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center text-muted py-4">No hay películas registradas.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
